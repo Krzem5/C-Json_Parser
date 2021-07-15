@@ -270,7 +270,7 @@ void write_json(json_object_t* json,string_32bit_t* o){
 		uint32_t j=o->l;
 		o->l+=sz;
 		o->v=realloc(o->v,o->l*sizeof(char));
-		for (uint8_t i=0;i<sz;i++){
+		for (int i=0;i<sz;i++){
 			*(o->v+j)=tmp[i];
 			j++;
 		}
