@@ -2,9 +2,10 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #endif
 #include <json_parser.h>
+#include <math.h>
 #include <stdint.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 
 
@@ -410,7 +411,7 @@ void write_json(json_object_t* json,string_32bit_t* o){
 
 
 void free_json(json_object_t* json){
-	if (json->t=JSON_OBJECT_TYPE_STRING){
+	if (json->t==JSON_OBJECT_TYPE_STRING){
 		if (json->dt.s.v){
 			free(json->dt.s.v);
 		}
