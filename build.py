@@ -44,7 +44,6 @@ else:
 					fl.append(f"build/{(r+f).replace('/','$')}.o")
 					if (subprocess.run(["gcc","-Wall","-lm","-Werror","-O3","-c",r+f,"-o",f"build/{(r+f).replace('/','$')}.o","-Isrc/include"]).returncode!=0):
 						sys.exit(1)
-		print(" ".join(fl))
 		if (subprocess.run(["gcc","-o","build/json_parser"]+fl+["-lm"]).returncode!=0):
 			sys.exit(1)
 	else:
