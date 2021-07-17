@@ -116,6 +116,9 @@ uint8_t parse_json(json_parser_state_t* p,json_object_t* o){
 				if (c=='}'){
 					return 0;
 				}
+				if (c!=' '&&c!='\t'&&c!='\n'&&c!='\r'){
+					return 1;
+				}
 				c=**p;
 				(*p)++;
 			}
@@ -136,6 +139,9 @@ uint8_t parse_json(json_parser_state_t* p,json_object_t* o){
 			while (c!=','){
 				if (c==']'){
 					return 0;
+				}
+				if (c!=' '&&c!='\t'&&c!='\n'&&c!='\r'){
+					return 1;
 				}
 				c=**p;
 				(*p)++;
@@ -162,8 +168,15 @@ uint8_t parse_json(json_parser_state_t* p,json_object_t* o){
 		o->t=JSON_OBJECT_TYPE_NULL;
 		return 0;
 	}
+	if ((c<48||c>57)&&c!='.'&&c!='e'&&c!='E'&&c!='-'&&c!='+'){
+		return 1;
+	}
 	int8_t s=1;
-	if (c=='-'){
+	if (c=='+'){
+		c=**p;
+		(*p)++;
+	}
+	else if (c=='-'){
 		s=-1;
 		c=**p;
 		(*p)++;
@@ -185,7 +198,7 @@ uint8_t parse_json(json_parser_state_t* p,json_object_t* o){
 		c=**p;
 		(*p)++;
 		while (c>47&&c<58){
-			v+=pw*(c-47);
+			v+=pw*(c-48);
 			pw*=0.1;
 			c=**p;
 			(*p)++;
@@ -212,7 +225,6 @@ uint8_t parse_json(json_parser_state_t* p,json_object_t* o){
 		}
 		pw*=pw_s;
 		v*=pow(2,(double)pw)*pow(5,(double)pw);
-		(*p)--;
 	}
 	(*p)--;
 	o->t=JSON_OBJECT_TYPE_FLOAT;

@@ -5,9 +5,11 @@
 
 
 int main(int argc,const char** argv){
-	json_parser_state_t p="{\"key\":[\"value\",10,0.555,-842.9e-50,{\"a\":[\"c\",30,\"d€\",\"\\n\x01\"],\"other\":\"else\"},true,false,null]}";
+	const char* dt="{\"key\":[\"value\",10,0.555,-842.9e-50,{\"a\":[\"c\",30,\"d€\",\"\\n\x01\"],\"other\":\"else\"},true,false,null]}";
 	json_object_t json;
+	json_parser_state_t p=(json_parser_state_t)dt;
 	if (parse_json(&p,&json)){
+		printf("Error: Offset %u: %s\n",p-1-dt,p-1);
 		return 1;
 	}
 	string_32bit_t o={
