@@ -5,7 +5,7 @@
 
 
 int main(int argc,const char** argv){
-	const char* dt="{\"key\":[\"value\",10,0.555,-842.9e-50,{\"a\":[\"c\",30,\"d€\",\"\\n\x01\"],\"other\":\"else\"},true,false,null]}";
+	const char* dt="{\"key\":[\"value\",10,0.555,-842.9e-50,{\"a\":[\"c\",30,\"d€\",\"\\n\x01\"],\"other\":\"else\"},true,false,null,{},[]]}";
 	json_object_t json;
 	json_parser_state_t p=(json_parser_state_t)dt;
 	if (parse_json(&p,&json)){

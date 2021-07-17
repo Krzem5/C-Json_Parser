@@ -94,6 +94,12 @@ uint8_t parse_json(json_parser_state_t* p,json_object_t* o){
 		o->dt.m.dt=NULL;
 		while (1){
 			while (c!='\"'){
+				if (c=='}'){
+					return 0;
+				}
+				if (c!=' '&&c!='\t'&&c!='\n'&&c!='\r'){
+					return 1;
+				}
 				c=**p;
 				(*p)++;
 			}
@@ -128,6 +134,13 @@ uint8_t parse_json(json_parser_state_t* p,json_object_t* o){
 		o->t=JSON_OBJECT_TYPE_ARRAY;
 		o->dt.a.l=0;
 		o->dt.a.dt=NULL;
+		while (c==' '||c=='\t'||c=='\n'||c=='\r'){
+			c=**p;
+			(*p)++;
+		}
+		if (c==']'){
+			return 0;
+		}
 		while (1){
 			o->dt.a.l++;
 			o->dt.a.dt=realloc(o->dt.a.dt,o->dt.a.l*sizeof(json_object_t));
