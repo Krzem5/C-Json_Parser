@@ -1,4 +1,5 @@
 #include <json_parser.h>
+#include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,7 +10,7 @@ int main(int argc,const char** argv){
 	json_object_t json;
 	json_parser_state_t p=(json_parser_state_t)dt;
 	if (parse_json(&p,&json)){
-		printf("Error: Offset %u: %s\n",p-1-dt,p-1);
+		printf("Error: Offset %"PRIu64": %s\n",p-1-dt,p-1);
 		return 1;
 	}
 	string_32bit_t o={
