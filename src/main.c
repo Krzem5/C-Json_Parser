@@ -20,7 +20,7 @@ int main(int argc,const char** argv){
 	write_json(&json,&o);
 	o.v=realloc(o.v,(o.l+1)*sizeof(char));
 	*(o.v+o.l)=0;
-	printf("<%u> %s\n",o.l,o.v);
+	printf("<Length: %u> %s\n",o.l,o.v);
 	free(o.v);
 	free_json(&json);
 	return 0;
